@@ -1,0 +1,8 @@
+.main{
+    background-color: #F6F6F6;
+    color: #7A7A7A;
+}
+
+.card{
+    background-image: url('../public/profile_user_info_card_bg.png');
+}
