@@ -97,7 +97,7 @@ axios(config)
 								/>
 								<span style={{ fontSize: '22px' }}>WishList</span>
 							</span>
-							<Link href=''><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
+							<Link href='/wishlist'><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
 						</li>
 						<li
 							class="list-group-item d-flex justify-content-between align-items-center"

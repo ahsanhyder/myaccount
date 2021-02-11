@@ -1,13 +1,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import styles from '../styles/Account.module.css';
-import PinDropIcon from '@material-ui/icons/PinDrop';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import PaymentIcon from '@material-ui/icons/Payment';
-import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
-import ShareIcon from '@material-ui/icons/Share';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link'
 import axios from 'axios';
 
@@ -17,7 +11,7 @@ export default function Account({ data }) {
 
 
 	return (
-		<div className={styles.main}>
+		<div className="">
 			<div>
 				<Head>
 					<title>Create Next App</title>
@@ -25,8 +19,16 @@ export default function Account({ data }) {
 				</Head>
 			</div>
 			<div>
-
-            </div>
+			<Link href='/addAddress'>
+<div className="container-fluid">
+	<div className={styles.btnDiv}>
+		<div className={styles.addAddressbutton}>
+			<AddIcon style={{fontSize: '50px' }}/>
+		</div>
+	</div>
+</div>
+</Link>
+</div>
 			</div>
 	);
 }
