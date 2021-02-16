@@ -2,13 +2,11 @@ import Head from 'next/head';
 import { useState } from 'react';
 import styles from '../styles/Account.module.css';
 import AddIcon from '@material-ui/icons/Add';
-import Link from 'next/link'
+import Link from 'next/link';
 import axios from 'axios';
 
 export default function Account({ data }) {
 	console.log('addressPage');
-
-
 
 	return (
 		<div className="">
@@ -19,16 +17,27 @@ export default function Account({ data }) {
 				</Head>
 			</div>
 			<div>
-			<Link href='/addAddress'>
-<div className="container-fluid">
-	<div className={styles.btnDiv}>
-		<div className={styles.addAddressbutton}>
-			<AddIcon style={{fontSize: '50px' }}/>
-		</div>
-	</div>
-</div>
-</Link>
-</div>
+				<Link href="/addAddress">
+					<div className="container-fluid">
+						<div className={styles.btnDiv}>
+							<div className={styles.addAddressbutton}>
+								<AddIcon style={{ fontSize: '50px' }} />
+							</div>
+						</div>
+					</div>
+				</Link>
 			</div>
+			<div className="container-fluid">
+			<div className={`row ${styles.centerMapImg}`}>
+				<img src="./empty_address.png" alt="Empty Address Image" className={styles.emptyAdressImg} />
+			</div>
+			<div className={`row ${styles.centerMapImgDiv}`}>
+				{/* <img src="./empty_address.png" alt="Empty Address Image" className={styles.emptyAdressImg} /> */}
+			<p className={styles.emptyAdressImgP}>We can't seem to locate you</p>
+			<p className={styles.emptyAdressImgP}>Please add in your address</p>
+			</div>
+			</div>
+			
+		</div>
 	);
 }

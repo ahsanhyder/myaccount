@@ -127,7 +127,7 @@ export default function Account({ data }) {
           margin="normal"
         />
 </div>
-<div className="container-fluid">
+<div className="container-fluid" style={{marginBottom:"25%"}}>
     <FormControlLabel
           control={<Checkbox color="success" />}
           label="Set as default address"
@@ -135,7 +135,7 @@ export default function Account({ data }) {
         />
     </div>
     <div className={styles.btnDiv}>
-    <button type="button" className={`btn ${styles.btnRounded}`}>Get Details</button>
+    <button type="button" className={`btn fixed-bottom ${styles.btnFlat}`}>SAVE</button>
 
     </div>
 
