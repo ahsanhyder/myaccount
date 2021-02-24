@@ -75,7 +75,7 @@ axios(config)
 								/>
 								<span style={{ fontSize: '22px'}}>Orders</span>
 							</span>
-							<Link href=''><KeyboardArrowRightIcon style={{ fontSize:32 }} onClick={handleOrders}/></Link>
+							<Link href='/orders'><KeyboardArrowRightIcon style={{ fontSize:32 }} onClick={handleOrders}/></Link>
 						</li>
 						<li
 							class="list-group-item d-flex justify-content-between align-items-center font-weight-bold"

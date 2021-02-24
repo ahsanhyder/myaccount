@@ -74,22 +74,20 @@ width: 300px;
 
 .containerTracker{
     width: 100%;
-    margin-top: 20%;
 }
 .progressBar{
     counter-reset: step;
 }
 .progressBar li{
     list-style-type: none;
-    width: 25%;
+    width: 33.3%;
     float: left;
     position: relative;
     text-align: center;
 } 
-.progressBar li:before{
-    /* content: counter(step); */
-    content:"";
-    /* counter-increment: step; */
+.progressBar li::before{
+    content: counter(step);
+    counter-increment: step;
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -106,7 +104,7 @@ width: 300px;
     position: absolute;
     width: 100%;
     height: 1px;
-    background-color: black;
+    background-color: #ddd;
     top: 15px;
     left: -50%;
     z-index: -1;
@@ -125,7 +123,7 @@ width: 300px;
 }
 
 .progressBar li.active + li:after{
-    background-color: white;
+    background-color: green;
 }
 
 @media only screen 
@@ -149,10 +147,69 @@ and (-webkit-device-pixel-ratio : 3) {
     display: flex;
 }
 
-.main2{
-    background-color: black;
-    color: white;
-    opacity: 0.8;
+
+
+import Head from 'next/head';
+import { useState } from 'react';
+import styles from '../styles/Account.module.css';
+import Link from 'next/link';
+import axios from 'axios';
+
+
+export default function tracker({data}) {
+
+    const [ orderData, setorderData ] = useState(data);
+    const [cards, setCards] = useState(orderData.resbody[0])
+
+	return (
+        <div>
+        <div className="container-fluid d-flex justify-content-center align-items-center mt-5">
+            <p class="card-text">Track Order Number : {cards.number}</p>  
+        </div>
+        <div className={styles.containerTracker}>
+            <ul className={styles.progressBar}>
+                <li className={styles.active}>Confirmed</li>
+                <li>Shipped</li>
+                <li>Out for Delivery</li>
+                <li>Delivered</li>
+            </ul>
+        </div>
+        <div className="container-fluid d-flex justify-content-center align-items-center mt-5">
+            <p class="card-text"></p>  
+        </div>
+        </div>
+        
+	);
 }
+
+
+export async function getStaticProps() {
+
+    var config = {
+      method: 'get',
+      url: 'https://qa.api.sugarcosmetics.com/orders/qa/getOrders?offset=0&limit=20&customer_id=2168277991507',
+      headers: { 
+        'Authorization': 'JdUZM1KDVeCyb6oy73oPrEZqlJwpl0mR',
+        // 'Content-type': 'application/json'
+        // 'contentType': 'application/json'
+        // 'Content-Type': 'text/html'
+      }
+    };
+    
+    let data = await axios(config)
+    .then(function (response) {
+        // console.log(response.data)
+      return response.data ;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    return {
+        props: {
+            data
+        }
+    };
+    
+    }
 
 
