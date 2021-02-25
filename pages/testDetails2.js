@@ -52,11 +52,11 @@ console.log(cards)
             {cards.line_items.map((ele)=>{
                 // console.log(cards)
                 return(
-<div class="card flex-row flex-nowrap" style={{ backgroundColor: 'white', marginBottom: '15px' }}>
+<div class="card flex-row flex-nowrap" style={{ backgroundColor: 'white', marginBottom: '0px' }}>
 						<div class="card-header border-0">
 							<img src={ele.image_url} alt="hello" style={{ width: '85px', height: '85px' }} />
 						</div>
-						<div class="container-fluid px-2">
+						<div class="container-fluid px-2 pt-2 pb-2">
 							<h5 class="card-title">{ele.title}</h5>
 							<p class="card-text">
 								<small class="text-muted">Rs. {ele.price}</small>
@@ -71,7 +71,7 @@ console.log(cards)
 
 			<div>
 				<div
-					class="card flex-row flex-nowrap"
+					class="card flex-row flex-nowrap mt-3"
 					style={{ backgroundColor: 'white', marginBottom: '15px', padding: '18px' }}
 				>
 					<div class="container-fluid px-2">
@@ -82,8 +82,8 @@ console.log(cards)
 				</div>
 			</div>
 			<div>
-				<div class="card flex-row flex-nowrap" style={{ backgroundColor: 'white', marginBottom: '15px' }}>
-					<div class="container-fluid px-2 py-2">
+				<div class="card flex-row flex-nowrap mt-3 pt-2 pb-2" style={{ backgroundColor: 'white', marginBottom: '15px' }}>
+					<div class="container-fluid px-2">
 						<h5 class="card-title">Price Details</h5>
 						<div className="d-flex justify-content-between">
 							<h6>Subtotal</h6>
@@ -110,7 +110,7 @@ console.log(cards)
 				</div>
 			</div>
 			<div class="card flex-nowrap" style={{ backgroundColor: 'white', marginBottom: '15px' }}>
-				<div class="container-fluid px-2 py-2">
+				<div class="container-fluid px-2 pt-2 pb-2">
 					<h5 class="card-title">Billing Address</h5>
 					<h6>
 						{cards.billing_address.first_name} {cards.billing_address.last_name}
@@ -141,29 +141,3 @@ console.log(cards)
         
 	);
 }
-
-
-// export async function getStaticProps() {
-
-//     var config = {
-//       method: 'get',
-//       url: 'https://qa.api.sugarcosmetics.com/orders/qa/getOrders?offset=0&limit=20&customer_id=2168277991507',
-//       headers: {
-//         'Authorization': '  JdUZM1KDVeCyb6oy73oPrEZqlJwpl0mR'
-//       }
-//     };
-
-//     let data = await axios(config)
-//     .then(function (response) {
-//       return response.data ;
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//     return {
-//         props: {
-//             data
-//         }
-//     };
-
-//     }
