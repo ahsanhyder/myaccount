@@ -4,14 +4,21 @@ import styles from '../styles/Account.module.css';
 import Link from 'next/link';
 import axios from 'axios';
 import TestDetails2 from './testDetails2'
+import Testtracker from './testTracker'
+import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
+import ChatIcon from '@material-ui/icons/Chat';
 
 export default function Orders({ data }) {
     const [ orderData, setorderData ] = useState(data);
     const [cards, setCards] = useState(orderData.resbody);
     const [singleOrder, setSingleOrder] = useState('')
+    const [singleTracker, setSingleTracker] = useState('')
 
 const handleBack = () =>{
     setSingleOrder('')
+}
+const handleClose = () =>{
+    setSingleTracker('')
 }
     const handleClick = (id) =>{
         console.log(id)
@@ -19,9 +26,17 @@ const handleBack = () =>{
         console.log(data)
         setSingleOrder(data)
     }
+
+    const handleTracker = (id ) =>{
+        var data = cards.filter(ele=>ele.id==id && ele)[0]
+        setSingleTracker(data)
+    }
     
     if(singleOrder){
         return <TestDetails2  data={singleOrder} handleBack={()=>handleBack()}/>
+    }
+    if(singleTracker){
+        return <Testtracker  data={singleTracker} handleClose={()=>handleClose()}/>
     }
 	return (
         
@@ -32,13 +47,31 @@ const handleBack = () =>{
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 			</div>
+            <div className="container-fluid py-2" style={{backgroundColor:"black", color:"white"}}>
+    <div className="row">
+        <div className="col-2">
+            <Link href='/account'>
+                <KeyboardBackspaceRoundedIcon/>
+            </Link>
+        </div>
+        <div className="col-8">
+                <h5>Orders</h5>
+        </div>
+        <div className="col-2">
+        <Link href='https://developers.freshchat.com/web-sdk/'>
+                <ChatIcon />
+            </Link>
+        </div>
+    </div>
+</div>
 {cards.map((elem)=>{
+    {var date = new Date(elem.created_at).toString().substring(0,15)}
     return(
 <div class="container-fluid mt-4">
             <div class="card">
     <div className="d-flex justify-content-between mx-2 my-2">
         <div>
-            <p class="card-text"><small class="text-muted">Wed 17 Feb 2021</small></p>
+            <p class="card-text"><small class="text-muted">{date}</small></p>
         </div>
         <div>
             <p class="card-text"><small class="text-primary">{elem.s_status.current_status}</small></p>
@@ -66,7 +99,7 @@ const handleBack = () =>{
         
             <button type="button" class="btn btn-outline-dark btn-lg btn-block container-fluid mt-2 mb-2" onClick={() =>handleClick(elem.id)} >View More Details</button>
    
-        <button type="button" class="btn btn-secondary btn-lg btn-block container-fluid mt-2 mb-2">Track Order</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block container-fluid mt-2 mb-2" onClick={() =>handleTracker(elem.id)}>Track Order</button>
    </>   
 }</div>
     </div>

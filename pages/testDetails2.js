@@ -4,6 +4,9 @@ import styles from '../styles/Account.module.css';
 import Link from 'next/link';
 import axios from 'axios';
 import InfoIcon from '@material-ui/icons/Info';
+import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
+import Tracker from './tracker'
+
 
 export default function testDetails2({ data, handleBack }) {
     // console.log("hello",data.resbody)
@@ -12,13 +15,12 @@ export default function testDetails2({ data, handleBack }) {
 	const [ orderData, setorderData ] = useState(data);
 	const [cards, setCards] = useState(data)
     const [track, setTrack] = useState(false)
+    const [detailsTracker, setDetailsTracker] = useState('')
+
+
 const cancelMessage = () =>{
     alert("Order can be cancelled after 1 hour!")
 }
-const handleTracker = () =>{
-    setTrack(true)
-}
-console.log(cards)
 	return (
 
 		<div className="">
@@ -30,7 +32,16 @@ console.log(cards)
 			</div>
             {cards &&
 <>
-<div onClick={handleBack}>Back</div>
+<div className="container-fluid py-2" style={{backgroundColor:"black", color:"white"}}>
+    <div className="row">
+        <div className="col-2">
+            <KeyboardBackspaceRoundedIcon onClick={handleBack}/>
+        </div>
+        <div className="col-10">
+                <h5>Order Detail</h5>
+        </div>
+    </div>
+</div>
 			<div className="container-fluid mt-4 mb-3">
 				<h5 class="card-title">Order Number : {cards.number}</h5>
 				<p class="card-text">
@@ -42,10 +53,7 @@ console.log(cards)
                     <small class="text-muted">Cancel Order <InfoIcon style={{backgroundColor:"white", color:"black",marginLeft:"3px"}} onClick={cancelMessage}/></small>
                 </div>
                 <div>
-             <Link href='/tracker'>
                     <small class="text-dark" style={{textDecoration:"underline",textDecorationColor:"blue"}}>Track Your Order</small>
-
-             </Link>
                 </div>
 
             </div>

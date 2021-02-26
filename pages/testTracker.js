@@ -16,17 +16,17 @@ export default function tracker({data, handleClose}) {
     const [detailsTracker, setDetailsTracker] = useState('')
 
 
-    // useEffect(() => {
-    //     axios.get('https://qa.api.sugarcosmetics.com/pincode/qa/pincodeDateOfDelivery')
-    //         .then(res => {
-    //             setMessage(res.data);
-    //             setLoad(true);
-    //         })
-    //         .catch(err => {
-    //             setError(err.message);
-    //             setLoad(true)
-    //         })
-    // }, []);
+    useEffect((pincode) => {
+        axios.post('https://qa.api.sugarcosmetics.com/pincode/qa/pincodeDateOfDelivery')
+            .then(res => {
+                console.log("hello",res.data)
+                setMessage(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+                setError(err.message);
+            })
+    }, []);
 
 //     const handleClick = () =>{
 // var message = JSON.stringify({"pincode":"440034"});
@@ -75,20 +75,20 @@ export default function tracker({data, handleClose}) {
                     )
                 })}
         </div>
-        <div>
+        <div style={{textAlign:"center"}}>
              <Link href='https://sugarcosmetics.clickpost.in/?order_id=" + {cards.number}'>
-                <button type="button" class="btn btn-secondary btn-lg btn-block container-fluid mt-5">Track Your Package</button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block container-fluid mt-5" style={{width:"250px"}}>Track Your Package</button>
              </Link>
          </div>
         {cards.s_status.history.delivery_status!==null?<div className="container-fluid d-flex justify-content-center align-items-center mt-5" style={{paddingBottom:'360px'}}>
             <p class="card-text mt-5" style={{color:"yellow"}}>
-                
+               Hey
             </p> 
-            <div>
+            {/* <div>
                 {message.map((ele)=>{
-                   return <>ele.message</>
+                   return <>{ele.message}</>
                 })}
-                </div> 
+                </div>  */}
             </div>:<div></div>}
         </div> 
 	);
