@@ -14,25 +14,29 @@ import axios from 'axios';
 export default function Account({ data }) {
 	console.log('accountPage');
 
-const handleOrders = () =>{
-var data = '';
+// const handleOrders = () =>{
+// var data = '';
 
-var config = {
-  method: 'get',
-  url: 'https://qa.api.sugarcosmetics.com/orders/qa/getOrders?offset=0&limit=20&customer_id=2168277991507',
-  headers: { 
-    'Authorization': ' JdUZM1KDVeCyb6oy73oPrEZqlJwpl0mR'
-  },
-  data : data
-};
+// var config = {
+//   method: 'get',
+//   url: 'https://qa.api.sugarcosmetics.com/orders/qa/getOrders?offset=0&limit=20&customer_id=2168277991507',
+//   headers: { 
+//     'Authorization': ' JdUZM1KDVeCyb6oy73oPrEZqlJwpl0mR'
+//   },
+//   data : data
+// };
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
+// axios(config)
+// .then(function (response) {
+//   console.log(JSON.stringify(response.data));
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });
+
+// }
+
+const handleGetAddress = () => {
 
 }
 
@@ -75,7 +79,7 @@ axios(config)
 								/>
 								<span style={{ fontSize: '22px'}}>Orders</span>
 							</span>
-							<Link href='/orders'><KeyboardArrowRightIcon style={{ fontSize:32 }} onClick={handleOrders}/></Link>
+							<Link href='/orders'><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
 						</li>
 						<li
 							class="list-group-item d-flex justify-content-between align-items-center font-weight-bold"
@@ -85,7 +89,7 @@ axios(config)
 								<PinDropIcon style={{ fontSize: 35, marginRight: '10px', marginLeft: '-10px' }} />
 								<span style={{ fontSize: '22px' }}>Addresses</span>
 							</span>
-							<Link href='/address'><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
+							<Link href='/address'><KeyboardArrowRightIcon style={{ fontSize:32 }}  /></Link>
 						</li>
 						<li
 							class="list-group-item d-flex justify-content-between align-items-center"
@@ -107,7 +111,7 @@ axios(config)
 								<PaymentIcon style={{ fontSize: 35, marginRight: '10px', marginLeft: '-10px' }} />
 								<span style={{ fontSize: '22px' }}>Payment Methods</span>
 							</span>
-							<Link href=''><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
+							<Link href='/payment'><KeyboardArrowRightIcon style={{ fontSize:32 }} /></Link>
 						</li>
 					</ul>
 				</div>

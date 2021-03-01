@@ -6,12 +6,12 @@ import axios from 'axios';
 import CloseIcon from '@material-ui/icons/Close';
 
 
-export default function tracker({data, handleClose}) {
+export default function tracker2({data, handleClose2}) {
     console.log("ordersData", data)
     const [cards, setCards] = useState(data)
-    console.log("pincode",cards.shipping_address.zip)
     const [zipCode, setZipCode] = useState(cards.shipping_address.zip)
-    console.log("vsjvjhjhbj",zipCode)
+
+    console.log("id",cards.id)
     const [message, setMessage] = useState([]);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
@@ -50,7 +50,7 @@ export default function tracker({data, handleClose}) {
                 <div className="row">
                     <div className="col-10" style={{color:"white"}}></div>
                     <div className="col-2">
-                        <CloseIcon onClick={handleClose}/>
+                        <CloseIcon onClick={handleClose2}/>
                     </div>
                 </div>
             </div>
@@ -76,8 +76,13 @@ export default function tracker({data, handleClose}) {
         {cards.s_status.history.delivery_status!==null?<div className="container-fluid d-flex justify-content-center align-items-center mt-5" style={{paddingBottom:'360px'}}>
             <p class="card-text mt-5" style={{color:"white"}}>
                 {message}
-            </p>
+            </p> 
+            <div>
+                
+                </div>
             </div>:<div></div>}
+
+            
         </div> 
 	);
 }

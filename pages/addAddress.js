@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import axios from 'axios';
+import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Account({ data }) {
 	console.log('addAddressPage');
     const classes = useStyles();
-
+ const handleDetails = () => {
+   
+ }
 
 	return (
 		<div className="">
@@ -37,6 +40,20 @@ export default function Account({ data }) {
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 			</div>
+
+      <div className="container-fluid py-2" style={{backgroundColor:"black", color:"white"}}>
+    			<div className="row">
+					<div className="col-2">
+						<Link href='/address'>
+							<KeyboardBackspaceRoundedIcon/>
+						</Link>
+					</div>
+					<div className="col-8">
+							<h5>Address</h5>
+					</div>
+    			</div>
+			</div>
+
 <div className="container-fluid my-4">
 <TextField
           id="standard-full-width"
@@ -94,7 +111,7 @@ export default function Account({ data }) {
         />
         </div>
         <div className="col-5">
-        <button type="button" className={`btn ${styles.btnRounded}`}>Get Details</button>
+        <button type="button" className={`btn ${styles.btnRounded}`} onClick={handleDetails}>Get Details</button>
 
         </div>
     </div>
@@ -107,7 +124,8 @@ export default function Account({ data }) {
           placeholder="City"
           fullWidth
           margin="normal"
-        />
+          disabled="true"
+        ></TextField>
 </div>
 <div className="container-fluid my-4">
 <TextField
@@ -116,7 +134,8 @@ export default function Account({ data }) {
           placeholder="State/Province"
           fullWidth
           margin="normal"
-        />
+          disabled="true"
+        ></TextField>
 </div>
 <div className="container-fluid my-4">
 <TextField
@@ -125,7 +144,8 @@ export default function Account({ data }) {
           placeholder="Country"
           fullWidth
           margin="normal"
-        />
+          disabled="true"
+        ></TextField>
 </div>
 <div className="container-fluid" style={{marginBottom:"25%"}}>
     <FormControlLabel

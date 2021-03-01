@@ -5,21 +5,34 @@ import Link from 'next/link';
 import axios from 'axios';
 import InfoIcon from '@material-ui/icons/Info';
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
-import Tracker from './tracker'
+import Testtracker from './testTracker'
+import TestTracker2 from './testTracker2'
 
 
 export default function testDetails2({ data, handleBack }) {
     // console.log("hello",data.resbody)
-	console.log('data', data);
-	console.log('orderDetailPage');
+	// console.log('data', data);
+	// console.log('orderDetailPage');
 	const [ orderData, setorderData ] = useState(data);
 	const [cards, setCards] = useState(data)
-    const [track, setTrack] = useState(false)
     const [detailsTracker, setDetailsTracker] = useState('')
+console.log("cards", cards)
 
+	const handleClose2 = () =>{
+		setDetailsTracker('')
+	}
 
 const cancelMessage = () =>{
     alert("Order can be cancelled after 1 hour!")
+}
+
+const handleDetailsTracker = (id ) =>{
+	// var data = cards.line_items.filter(ele=>ele.id==id && ele)[0]
+	setDetailsTracker(cards)
+}
+
+if(detailsTracker){
+	return <TestTracker2  data={detailsTracker} handleClose2={()=>handleClose2()}/>
 }
 	return (
 
@@ -52,9 +65,13 @@ const cancelMessage = () =>{
                 <div>
                     <small class="text-muted">Cancel Order <InfoIcon style={{backgroundColor:"white", color:"black",marginLeft:"3px"}} onClick={cancelMessage}/></small>
                 </div>
-                <div>
-                    <small class="text-dark" style={{textDecoration:"underline",textDecorationColor:"blue"}}>Track Your Order</small>
-                </div>
+				{cards.line_items.map((elem)=>{
+					return(
+						<div>
+						<small class="text-dark" style={{textDecoration:"underline",textDecorationColor:"blue"}} onClick={() =>handleDetailsTracker(elem.id)}>Track Your Order</small>
+					</div>
+					)
+				})}
 
             </div>
             {cards.line_items.map((ele)=>{

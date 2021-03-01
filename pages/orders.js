@@ -13,6 +13,7 @@ export default function Orders({ data }) {
     const [cards, setCards] = useState(orderData.resbody);
     const [singleOrder, setSingleOrder] = useState('')
     const [singleTracker, setSingleTracker] = useState('')
+    console.log("cardOrders", cards)
 
 const handleBack = () =>{
     setSingleOrder('')
