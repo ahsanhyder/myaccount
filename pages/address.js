@@ -1,19 +1,62 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import { useRouter } from 'next/router'
 import styles from '../styles/Account.module.css';
 import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link';
 import axios from 'axios';
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
+import EditAddress from './editAddress'
 
 
 export default function Account({ data }) {
+	const router = useRouter()
 	const [ orderData, setorderData ] = useState(data);
     const [cards, setCards] = useState(orderData.resbody);
+	const [editAddress, setEditAddress] = useState('')
 	console.log("AddressCards",cards)
 
-const handleDelete = () =>{
-	
+const handleEdit = (id) =>{
+	console.log("required Id", id)
+	var data = cards.filter(ele=>ele.id==id && ele)
+	console.log("Required Data",data)
+	setEditAddress(data)
+}
+
+const handleBack = () =>{
+	setEditAddress('')
+}
+
+if(editAddress){
+	return <EditAddress  data={editAddress} handleBack={()=>handleBack()}/>
+}
+
+const handleDelete = (id) =>{
+	alert("Are You sure?")
+var data = {
+	customer_id:"2168277991507",
+	id:id
+};
+
+var config = {
+  method: 'delete',
+  url: 'https://qa.api.sugarcosmetics.com/users/qa/deleteaddress',
+  headers: { 
+    'Authorization': 'n8rWAch1D3OIRmDIeCA9flEKdwMqpCLa', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+	router.push('/address')
+  return response.data;
+})
+.catch(function (error) {
+  console.log(error);
+});
+
 }
 
 	return (
@@ -57,9 +100,20 @@ const handleDelete = () =>{
 					</div>
     			</div>
 			</div>
+			<div>
+				<Link href="/addAddress">
+					<div className="container-fluid fixed-top">
+						<div className={styles.btnDiv2}>
+							<div className={styles.addAddressbutton2}>
+								<AddIcon style={{ fontSize: '30px' }} />
+							</div>
+						</div>
+					</div>
+				</Link>
+			</div>
 {cards.map((ele)=>{
 	return(
-<div className="container-fluid mt-3">
+<div className="container-fluid " style={{marginTop:"100px"}}>
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">{ele.first_name} {ele.last_name}</h5>
@@ -67,8 +121,8 @@ const handleDelete = () =>{
 					<p class="card-text">{ele.city} {ele.province} {ele.zip}</p>
 					<p class="card-text">Phone No. {ele.phone}</p>
 					<div className="d-flex justify-content-between">
-						<button type="button" class="btn btn-primary" style={{width:"80px", height:"40px"}}>Edit</button>
-						<button type="button" class="btn btn-primary" style={{width:"80px", height:"40px"}} onClick={handleDelete}>Delete</button>
+							<button type="button" class="btn btn-primary" style={{width:"80px", height:"40px"}} onClick={() =>handleEdit(ele.id)}>Edit</button>
+						<button type="button" class="btn btn-primary" style={{width:"80px", height:"40px"}} onClick={() =>handleDelete(ele.id)}>Delete</button>
 					</div>
 				</div>
     		</div>
@@ -87,7 +141,7 @@ const handleDelete = () =>{
 				</div>
     		</div>
 			</div> */}
-			<div>
+			{/* <div>
 				<Link href="/addAddress">
 					<div className="container-fluid fixed-bottom">
 						<div className={styles.btnDiv2}>
@@ -97,7 +151,7 @@ const handleDelete = () =>{
 						</div>
 					</div>
 				</Link>
-			</div>
+			</div> */}
 			
 		</div>
 	);

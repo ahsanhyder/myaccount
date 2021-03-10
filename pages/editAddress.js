@@ -26,41 +26,31 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Account({ data }) {
-	console.log('addAddressPage');
-  const router = useRouter()
+export default function Account({ data , handleBack}) {
+    const router = useRouter()
+	// console.log('addAddressPage', data);
+    const [ orderData, setorderData ] = useState(data);
+	const [cards, setCards] = useState(data)
+    console.log('addAddressPageCards', cards);
+console.log("cardsRequired",cards)
     const classes = useStyles();
-    const [zipValue, setZipValue] = useState('')
-    const [city, setCity] = useState('')
-    const [province, setProvince] = useState('')
-    const [country, setCountry] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [errors, setErrors] = useState({firstName:""})
-    const [lastName, setLastName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [address1, setAddress1] = useState('')
-    const [address2, setAddress2] = useState('')
+    const [zipValue, setZipValue] = useState(cards[0].zip)
+    const [city, setCity] = useState(cards[0].city)
+    const [province, setProvince] = useState(cards[0].province)
+    const [country, setCountry] = useState(cards[0].country)
+    const [firstName, setFirstName] = useState(cards[0].first_name)
+    const [lastName, setLastName] = useState(cards[0].last_name)
+    const [phone, setPhone] = useState(cards[0].phone)
+    const [address1, setAddress1] = useState(cards[0].address1)
+    const [address2, setAddress2] = useState(cards[0].address2)
     const [checkbox, setCheckbox] = useState(false)
-
 
 const handleChange =  (e) =>{
   setZipValue(e.target.value)
-  // setFirstName(e.target.value)
-  // setLastName(e.target.value)
-  // setPhone(e.target.value)
-  // setAddress1(e.target.value)
-  setAddress2(e.target.value)
 }
 
 const handlefChange = (e) =>{
-  // setFirstName(e.target.value)
-  setErrors({firstName:""})
   setFirstName(e.target.value)
-  let reg = new RegExp(/^\d*$/).test(e.target.value)
-  if(!reg){
-    setErrors({firstName:"Only Numbers are allowed !"})
-  }
-
 }
 
 const handlelChange = (e) =>{
@@ -80,8 +70,8 @@ const handleadd2Change = (e) =>{
 }
 
 const handleCheckBox = (e) =>{
-  setCheckbox(true)
-}
+    setCheckbox(true)
+  }
 
  const handleDetails = () => {
 console.log(zipValue)
@@ -105,9 +95,11 @@ console.log(zipValue)
 
  }
 
-const handleAddaddress = () => {
+const handleEditaddress = (id) => {
+    console.log("hello")
 var data = {
   customer_id: 2168277991507,
+  id:id,
   address1: address1,
   address2: address2,
   first_name: firstName,
@@ -121,27 +113,26 @@ var data = {
 };
 
 var config = {
-  method: 'post',
-  url: 'https://qa.api.sugarcosmetics.com/users/qa/createaddress',
-  headers: { 
-    'Content-Type': ' application/json', 
-    'Authorization': ' n8rWAch1D3OIRmDIeCA9flEKdwMqpCLa', 
-    'os_type': ' 1', 
-    'version': ' 53'
-  },
-  data : data
-};
-
-axios(config)
-.then(function (response) {
-  router.push('/address')
-  return response.data;
-})
-.catch(function (error) {
-  console.log(error);
-});
-
-}
+    method: 'put',
+    url: 'https://qa.api.sugarcosmetics.com/users/qa/updateaddress',
+    headers: { 
+      'Authorization': ' n8rWAch1D3OIRmDIeCA9flEKdwMqpCLa', 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  console.log("resdata",data)
+  axios(config)
+  .then(function (response) {
+      console.log("res",response
+      )
+      router.push('/address')
+    return response;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}  
 
 	return (
 		<div className="">
@@ -155,29 +146,30 @@ axios(config)
       <div className="container-fluid py-2" style={{backgroundColor:"black", color:"white"}}>
     			<div className="row">
 					<div className="col-2">
-						<Link href='/address'>
-							<KeyboardBackspaceRoundedIcon/>
-						</Link>
+						{/* <Link href='/address'> */}
+							<KeyboardBackspaceRoundedIcon onClick={handleBack}/>
+						{/* </Link> */}
 					</div>
 					<div className="col-8">
 							<h5>Address</h5>
 					</div>
     			</div>
 			</div>
-
-<div className="container-fluid my-4">
+ {cards.map((elem)=>{
+    return(
+                <> 
+                    <div className="container-fluid my-4">
 <TextField
           id="standard-full-width"
           style={{ margin: 8 }}
           placeholder="First Name"
-          name="fname"
+        //   name={elem.first_name}
           fullWidth
           margin="normal"
           required="true"
+          value={firstName}
           inputProps={{maxLength :30}}
           onChange={handlefChange}
-          error={Boolean(errors?.firstName)}
-          helperText={(errors?.firstName)}
         />
 </div>
 <div className="container-fluid my-4">
@@ -188,6 +180,7 @@ axios(config)
           fullWidth
           margin="normal"
           required="true"
+          value={lastName}
           inputProps={{maxLength :30}}
           onChange={handlelChange}
         />
@@ -200,6 +193,7 @@ axios(config)
           fullWidth
           margin="normal"
           required="true"
+          value={phone}
           inputProps={{maxLength :10}}
           onChange={handlephnChange}
         />
@@ -212,6 +206,7 @@ axios(config)
           fullWidth
           margin="normal"
           required="true"
+          value={address1}
           inputProps={{maxLength :300}}
           onChange={handleadd1Change}
         />
@@ -224,6 +219,7 @@ axios(config)
           fullWidth
           margin="normal"
           required="true"
+          value={address2}
           inputProps={{maxLength :300}}
           onChange={handleadd2Change}
         />
@@ -238,6 +234,7 @@ axios(config)
           fullWidth
           margin="normal"
           required="true"
+          value={zipValue}
           inputProps={{maxLength :6}}
           onChange={handleChange} 
         />
@@ -297,9 +294,139 @@ axios(config)
         />
     </div>
     <div className={styles.btnDiv}>
-    <button type="button" className={`btn fixed-bottom ${styles.btnFlat}`} onClick={handleAddaddress}>SAVE</button>
+    <button type="button" className={`btn fixed-bottom ${styles.btnFlat}`} onClick={()=>handleEditaddress(elem.id)}>SAVE</button>
 
     </div>
+
+                 </>
+    )
+})} 
+{/* <div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="First Name"
+          name="fname"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handlefChange}
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Last Name"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handlelChange}
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Phone number"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handlephnChange}
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Address Line 1"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handleadd1Change}
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Address Line 2"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handleadd2Change}
+        />
+</div>
+<div className="container-fluid my-4">
+    <div className="row">
+        <div className="col-7">
+        <TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Pincode"
+          fullWidth
+          margin="normal"
+          required="true"
+          onChange={handleChange} 
+        />
+        </div>
+        <div className="col-5">
+        <button type="button" className={`btn ${styles.btnRounded}`} onClick={() => handleDetails(zipValue)}>Get Details</button>
+
+        </div>
+    </div>
+
+</div>
+
+<div className="container-fluid my-4">
+  
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8,backgroundColor:"pink",color:"black" }}
+          placeholder="City"
+          fullWidth
+          margin="normal"
+          value={city}
+          disabled="true"
+          required="true"
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8,backgroundColor:"pink" }}
+          placeholder="State/Province"
+          fullWidth
+          margin="normal"
+          value={province}
+          disabled="true"
+          required="true"
+
+        />
+</div>
+<div className="container-fluid my-4">
+<TextField
+          id="standard-full-width"
+          style={{ margin: 8,backgroundColor:"pink" }}
+          placeholder="Country"
+          fullWidth
+          margin="normal"
+          value={country}
+          disabled="true"
+          required="true"
+        />
+</div>
+<div className="container-fluid" style={{marginBottom:"25%"}}>
+    <FormControlLabel
+          control={<Checkbox color="success" />}
+          label="Set as default address"
+          labelPlacement="end"
+        />
+    </div>
+    <div className={styles.btnDiv}>
+    <button type="button" className={`btn fixed-bottom ${styles.btnFlat}`} onClick={handleAddaddress}>SAVE</button>
+
+    </div> */}
 
 </div>
 	);
